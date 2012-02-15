@@ -49,11 +49,11 @@ module RSolr::Ext::Response
     
     # short cut to response['numFound']
     def total
-      response[:numFound].to_s.to_i
+      response ? response[:numFound].to_s.to_i : 0 
     end
     
     def start
-      response[:start].to_s.to_i
+      response ? response[:start].to_s.to_i : 0
     end
     
   end

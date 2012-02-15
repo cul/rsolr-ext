@@ -1,7 +1,7 @@
 module RSolr::Ext::Response::Docs
   
   def self.extended(base)
-    d = base['response']['docs']
+    d = base['response'] ? base['response']['docs'] : []
     # TODO: could we do this lazily (Enumerable etc.)
     d.each{|doc| doc.extend RSolr::Ext::Doc }
     d.extend Pageable
@@ -52,7 +52,7 @@ module RSolr::Ext::Response::Docs
   
   def docs
     @docs ||= begin
-      response['docs']
+      response ? response['docs'] : []
     end
   end
   
