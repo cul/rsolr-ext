@@ -194,7 +194,7 @@ describe RSolr::Ext do
 
     def create_response
       raw_response = eval(mock_query_response)
-      RSolr::Ext::Response::Base.new(raw_response, 'select', raw_response['params'])
+      RSolr::Ext::Response::Base.new(raw_response, 'select', raw_response['responseHeader']['params'])
     end
 
     it 'should create a valid response' do
