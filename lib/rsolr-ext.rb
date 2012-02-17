@@ -17,6 +17,7 @@ module RSolr::Ext
   
   autoload :Client, 'rsolr-ext/client.rb'
   autoload :Doc, 'rsolr-ext/doc.rb'
+  autoload :Group, 'rsolr-ext/group.rb'
   autoload :Request, 'rsolr-ext/request.rb'
   autoload :Response, 'rsolr-ext/response.rb'
   autoload :Model, 'rsolr-ext/model.rb'
