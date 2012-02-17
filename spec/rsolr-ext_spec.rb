@@ -332,4 +332,36 @@ describe RSolr::Ext do
 
   end
 
+  context 'response for Result-Grouped query' do
+
+    def create_response
+      raw_response = eval(mock_query_response_grouped)
+      RSolr::Ext::Response::Base.new( raw_response,
+                                      'select',
+                                      raw_response[ 'responseHeader' ][ 'params' ] )
+    end
+
+    it 'should create a valid response' do
+      r = create_response
+      r.should respond_to(:header)
+      r.ok?.should == true
+    end
+
+    it 'should have accurate total' do
+      r = create_response
+      r.total.should == 1064474
+    end
+    
+    it 'should have accurate rows' do
+      r = create_response
+      r.rows.should == 10
+    end    
+
+    it 'should have accurate start' do
+      r = create_response
+      r.start.should == 50
+    end    
+    
+  end
+
 end
