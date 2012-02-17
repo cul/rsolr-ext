@@ -190,7 +190,7 @@ describe RSolr::Ext do
 
   end
 
-  context 'response' do
+  context 'response for non-Result-Grouped query' do
 
     def create_response
       raw_response = eval(mock_query_response)
