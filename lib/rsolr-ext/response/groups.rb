@@ -1,9 +1,10 @@
 module RSolr::Ext::Response::Groups
   
   def self.extended(base)
-    g = base['grouped']
+    group_field = base['grouped'].keys[0]
+    g = base['grouped'][group_field]['groups']
     # TODO: could we do this lazily (Enumerable etc.)
-    g.each{|group| group.extend RSolr::Ext::group }
+    g.each{|group| group.extend RSolr::Ext::Group }
     g.extend Pageable
     g.per_page = [base.rows, 1].max
     g.start = base.start
@@ -52,7 +53,7 @@ module RSolr::Ext::Response::Groups
   
   def groups
     @groups ||= begin
-      response ? response['groups'] : []
+      response[ group_field ][ 'groups' ]
     end
   end
   
