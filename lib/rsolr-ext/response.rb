@@ -15,8 +15,8 @@ module RSolr::Ext::Response
       @original_hash = hash
       @request_path, @request_params = request_path, request_params
       
-      # Handle two types of queries/result-sets -- "standard" and Result-Grouped
-      # The SOLR response for these are very different in structure 
+      # Handle two types of queries/result-sets: "standard" and Result-Grouped
+      # The SOLR responses for these are very different in structure 
       if @original_hash[ 'response' ]
         @response_module    = Response
         @result_type_module = Docs
@@ -24,7 +24,7 @@ module RSolr::Ext::Response
         @response_module    = GroupedResponse
         @result_type_module = Groups
       else
-        # Should neve get here
+        # Should never get here
       end
       
       extend @response_module
