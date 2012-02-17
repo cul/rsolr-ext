@@ -15,6 +15,8 @@ module RSolr::Ext::Response
       @original_hash = hash
       @request_path, @request_params = request_path, request_params
       
+      # Handle two types of queries/result-sets -- "standard" and Result-Grouped
+      # The SOLR response for these are very different in structure 
       if @original_hash[ 'response' ]
         @response_module    = Response
         @result_type_module = Docs
@@ -29,7 +31,6 @@ module RSolr::Ext::Response
       extend @result_type_module
       extend Facets
       extend Spelling
-      
     end
     
     def header
