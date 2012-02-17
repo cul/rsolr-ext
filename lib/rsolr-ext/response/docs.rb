@@ -52,7 +52,7 @@ module RSolr::Ext::Response::Docs
   
   def docs
     @docs ||= begin
-      response ? response['docs'] : []
+      response['docs']
     end
   end
   
