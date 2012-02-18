@@ -362,6 +362,21 @@ describe RSolr::Ext do
       r.start.should == 50
     end    
     
+    it 'should retrieve a group list using #groups' do
+      r = create_response
+      r.groups.length.should == 10
+    end
+    
+    it 'should retrieve a group list using #docs alias' do
+      r = create_response
+      r.docs.length.should   == 10
+    end
+    
+    it 'should retrieve identical group lists using #groups and #docs' do
+      r = create_response
+      r.groups.should == r.docs
+    end
+    
   end
 
 end

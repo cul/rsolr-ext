@@ -57,4 +57,7 @@ module RSolr::Ext::Response::Groups
     end
   end
   
+  # This is mainly to keep RSolr::Ext client code that expects Docs only from failing
+  alias :docs groups
+  
 end
