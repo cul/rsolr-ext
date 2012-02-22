@@ -57,7 +57,17 @@ module RSolr::Ext::Response::Groups
     end
   end
   
-  # This is mainly to keep RSolr::Ext client code that expects Docs only from failing
-  alias :docs groups
+  def docs
+    if @docs 
+      return @docs
+    else 
+      @docs = []
+      groups.each do | group |
+        @docs.concat( group[ 'doclist' ][ 'docs' ] )      
+      end
+    end
+    
+    return @docs
+  end
   
 end
