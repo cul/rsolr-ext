@@ -333,48 +333,58 @@ describe RSolr::Ext do
   end
 
   context 'response for Result-Grouped query' do
-
-    def create_response
+    
+    def create_raw_response
       raw_response = eval(mock_query_response_grouped)
-      RSolr::Ext::Response::Base.new( raw_response,
-                                      'select',
-                                      raw_response[ 'responseHeader' ][ 'params' ] )
+      return raw_response
+    end
+
+    def create_rsolr_ext_response
+      raw_response = create_raw_response
+      return RSolr::Ext::Response::Base.new( raw_response,
+                                             'select',
+                                             raw_response[ 'responseHeader' ][ 'params' ] )
     end
 
     it 'should create a valid response' do
-      r = create_response
+      r = create_rsolr_ext_response
       r.should respond_to(:header)
       r.ok?.should == true
     end
 
     it 'should have accurate total' do
-      r = create_response
+      r = create_rsolr_ext_response
       r.total.should == 1064474
     end
     
     it 'should have accurate rows' do
-      r = create_response
+      r = create_rsolr_ext_response
       r.rows.should == 10
     end    
 
     it 'should have accurate start' do
-      r = create_response
+      r = create_rsolr_ext_response
       r.start.should == 50
     end    
     
     it 'should retrieve a group list using #groups' do
-      r = create_response
-      r.groups.length.should == 10
+      rsolr_ext_response = create_rsolr_ext_response
+      raw_response       = create_raw_response
+      
+      rsolr_ext_response.groups.should        == raw_response[ 'grouped' ][ 'originalUrl' ][ 'groups' ]
     end
     
-    it 'should retrieve a group list using #docs alias' do
-      r = create_response
-      r.docs.length.should   == 10
-    end
-    
-    it 'should retrieve identical group lists using #groups and #docs' do
-      r = create_response
-      r.groups.should == r.docs
+    it 'should retrieve a non-grouped document list using #docs' do
+      rsolr_ext_response = create_rsolr_ext_response
+      raw_response       = create_raw_response
+      
+      docs_in_raw_response = []
+      groups               = raw_response[ 'grouped' ][ 'originalUrl' ][ 'groups' ]
+      groups.each { | group |
+        docs_in_raw_response.concat( group[ 'doclist' ][ 'docs' ] )          
+      }
+      
+      rsolr_ext_response.docs.should == docs_in_raw_response
     end
     
   end
