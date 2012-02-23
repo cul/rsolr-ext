@@ -338,9 +338,21 @@ describe RSolr::Ext do
       raw_response = eval(mock_query_response_grouped)
       return raw_response
     end
+    
+    def create_raw_response_no_start_param
+      raw_response = eval(mock_query_response_grouped_no_start_param )
+      return raw_response
+    end
 
     def create_rsolr_ext_response
       raw_response = create_raw_response
+      return RSolr::Ext::Response::Base.new( raw_response,
+                                             'select',
+                                             raw_response[ 'responseHeader' ][ 'params' ] )
+    end
+    
+    def create_rsolr_ext_response_no_start_param
+      raw_response = create_raw_response_no_start_param
       return RSolr::Ext::Response::Base.new( raw_response,
                                              'select',
                                              raw_response[ 'responseHeader' ][ 'params' ] )
@@ -365,7 +377,12 @@ describe RSolr::Ext do
     it 'should have accurate start' do
       r = create_rsolr_ext_response
       r.start.should == 50
-    end    
+    end
+    
+    it 'should have default start = 0 if there is no start param in request' do
+      r = create_rsolr_ext_response_no_start_param
+      r.start.should == 0
+    end
     
     it 'should retrieve a group list using #groups' do
       rsolr_ext_response = create_rsolr_ext_response

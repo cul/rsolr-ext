@@ -89,7 +89,7 @@ module RSolr::Ext::Response
     def start
       # Result-Grouped response has 'start' for each doclist, but no start for the groups 
       # collection itself.  The SOLR request can be used to get the start value.
-      params[:start]
+      params[:start] ? params[ :start ] : 0
     end
     
   end
