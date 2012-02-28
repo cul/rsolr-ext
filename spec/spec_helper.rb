@@ -49,7 +49,7 @@ RSpec.configure do |config|
        "rows"=>"10",
        "f.domain.facet.limit"=>"11",
        "f.organization_based_in__facet.facet.limit"=>"11",
-       "start"=>50,
+       "start"=>"50",
        "q"=>"+women",
        "group"=>"true"}},
    "grouped"=>
