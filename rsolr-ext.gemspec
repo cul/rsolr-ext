@@ -21,10 +21,28 @@ Gem::Specification.new do |s|
 
   # rsolr-ext has in the past fallen behind rsolr, and the resulting incompatibilities broke
   # blacklight.  Locking the gem version to close off this vulnerability. 
+  # See http://groups.google.com/group/blacklight-development/browse_thread/thread/10d256f20f0bbc8d/35a5120c50060579?fwc=1
+  # Also, James has told us that Blacklight does not plan on developing on RSolr for the future.
+  # They are going to write their own library for interfacing with SOLR.
   s.add_dependency 'rsolr', "1.0.7"
   s.add_development_dependency 'rake', '~> 0.9.2'
   s.add_development_dependency 'rdoc', '~> 3.9.4'
   s.add_development_dependency 'rspec', '~> 2.6.0'
-  s.add_development_dependency 'rcov'
+
+  # Commenting out rcov gem to avoid this error:
+=begin
+  Installing rcov (1.0.0) with native extensions
+   Gem::Installer::ExtensionBuildError: ERROR: Failed to build gem native extension.
+  
+        /home/da217/.rvm/rubies/ruby-1.9.3-p0/bin/ruby extconf.rb
+**** Ruby 1.9 is not supported. Please switch to simplecov ****
+
+
+Gem files will remain installed in /home/da217/.rvm/gems/ruby-1.9.3-p0/gems/rcov-1.0.0 for inspection.
+Results logged to /home/da217/.rvm/gems/ruby-1.9.3-p0/gems/rcov-1.0.0/ext/rcovrt/gem_make.out
+An error occured while installing rcov (1.0.0), and Bundler cannot continue.
+Make sure that `gem install rcov -v '1.0.0'` succeeds before bundling.
+=end
+  # s.add_development_dependency 'rcov'
 end
 
