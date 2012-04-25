@@ -19,8 +19,9 @@ Gem::Specification.new do |s|
   s.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
   s.require_paths = ["lib"]
 
-
-  s.add_dependency 'rsolr', ">= 1.0.1"
+  # rsolr-ext has in the past fallen behind rsolr, and the resulting incompatibilities broke
+  # blacklight.  Locking the gem version to close off this vulnerability. 
+  s.add_dependency 'rsolr', "1.0.7"
   s.add_development_dependency 'rake', '~> 0.9.2'
   s.add_development_dependency 'rdoc', '~> 3.9.4'
   s.add_development_dependency 'rspec', '~> 2.6.0'
