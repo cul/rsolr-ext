@@ -9,6 +9,7 @@ unless Hash.respond_to?(:to_mash)
 end
 
 $: << File.dirname(__FILE__) unless $:.include?(File.dirname(__FILE__))
+$LOAD_PATH.unshift File.join(File.dirname(__FILE__), *%w[.. lib])
 
 require 'rubygems'
 require 'rsolr'
