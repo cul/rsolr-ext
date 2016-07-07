@@ -2,7 +2,7 @@
 $LOAD_PATH << '.'
 $:.push File.expand_path("../lib", __FILE__)
 
-require File.join(File.dirname(__FILE__), 'lib', 'rsolr-ext') 
+require File.join('lib', 'rsolr-ext') 
 
 Gem::Specification.new do |s|
   s.name = %q{rsolr-ext}
